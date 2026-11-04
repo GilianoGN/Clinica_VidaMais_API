@@ -1,0 +1,37 @@
+[project]
+name = "DIO-Bank-FastAPI"
+version = "0.1.0"
+description = "API for banking transactions"
+authors = [
+    {name = "Giliano G. Novais",email = "vipergiliano@gmail.com"}
+]
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi",
+    "uvicorn[standard] (>=0.54.0,<0.55.0)",
+    "databases[aiosqlite,asyncpg]",
+    "pyjwt",
+    "psycopg2-binary",
+    "pydantic-settings",
+    "alembic",
+    "psycopg[binary]",
+    "passlib (>=1.7.4,<2.0.0)",
+    "bcrypt (==4.0.1)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "httpx",
+    "pytest-mock"
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"

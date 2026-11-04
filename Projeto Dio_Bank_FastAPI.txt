@@ -1,0 +1,68 @@
+Projeto Dio_Bank_FastAPI
+
+Usuário
+- id do usuário
+- nome
+- documento
+- perfil (Admin ou Cliente)
+- senha
+
+Agencia
+- id da agencia
+- endereço
+
+Conta
+- id da conta
+- id do usuário
+- id da agencia
+- tipo conta (Corrente ou Poupança)
+- valor
+
+Movimentação
+- id da movimentação
+- id da conta
+- tipo movimentação (Deposito, Saque, Transferência)
+- valor
+
+Autenticação
+- login do usuário
+- Rotas liberadas de acordo com o perfil
+	- Perfil Administrativo
+		- Crud do usuário
+		- Crud da agencia
+		- Crud de contas somente próprias
+		- Crud de movimentação somente próprias
+	- Perfil Cliente
+		- Alteração somente de senha no usuário
+		- sem acesso a agencia
+		- Crud de contas somente próprias
+		- Crud de movimentação somente própriascrea
+
+Usuário
+- Criação de Usuário
+- Lista de todos os Usuário
+- Atualização de Usuário
+- Deleção de Usuário
+
+Agencia
+- Criação de Agencia
+- Lista de todas as Agencia
+- Atualização de Agencia
+- Deleção de Agencia
+
+Conta
+- Criação de Conta para o usuário logado
+- Lista de todas as Contas do usuário logado ( que só poderá ser 1 Corrente e varias Poupança)
+- Deletar Contas do usuário (somente se o valor estiver zerada)
+
+Movimentação
+- Criar Movimentação 
+	- Deposito (somente valor positivo > 0)(para qualquer conta)
+	- Saque (somente da conta do usuário logado)(somente se houver saldo disponível)
+	- Transferência (somente da conta do usuário logado para qualquer conta exceto a própria)
+- Listar Movimentações (Extrato)
+	- Extrato geral (somente de uma conta por vez)
+	- Extrato Debito (somente de uma conta por vez)
+	- Extrato Credito (somente de uma conta por vez)
+	
+
