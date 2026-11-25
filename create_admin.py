@@ -14,7 +14,7 @@ async def create_initial_admin():
         existing_users = await database.fetch_all(query)
         if not existing_users:
             insert_query = users.insert().values(
-                name="Admin",
+                name="administrador",
                 document="00000000000",
                 profile="admin",
                 password=pwd_context.hash("admin123")

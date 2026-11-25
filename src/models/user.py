@@ -6,7 +6,7 @@ from src.database import metadata
 users = sa.Table(
     "users",
     metadata,
-    sa.Column("id", sa.Integer, primary_key=True),
+    sa.Column("id", sa.Integer, primary_key=True, index=True),
     sa.Column("name", sa.String(150), nullable=False),
     sa.Column("document", sa.String(14), nullable=False, unique=True),
     sa.Column("profile", sa.String(20), nullable=False, default="client"),

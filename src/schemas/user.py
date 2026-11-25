@@ -4,15 +4,16 @@ from pydantic import BaseModel  # type: ignore
 
 # Definição do Enum para tipos de perfil de usuário
 class ProfileEnum(str, Enum):
-    ADMIN = "admin"
-    CLIENT = "client"
+    ADMIN = "administrador"
+    MEDIC = "medico"
+    ATEND = "atendente"
 
 
 # Definição de modelo de entrada para criação de usuário
 class UserIn(BaseModel):
     name: str
     document: str
-    profile: ProfileEnum = ProfileEnum.CLIENT
+    profile: ProfileEnum = ProfileEnum.ATEND
     password: str
 
 

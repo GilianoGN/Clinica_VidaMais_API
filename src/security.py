@@ -91,7 +91,7 @@ async def get_current_user(
 async def get_current_admin_user(
         current_user: Annotated[dict, Depends(get_current_user)]
 ) -> dict:
-    if current_user.get("profile") != "admin":
+    if current_user.get("profile") != "administrador":
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Access denied. Only administrator can perform this action."

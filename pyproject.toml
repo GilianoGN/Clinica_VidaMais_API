@@ -1,7 +1,7 @@
 [project]
-name = "DIO-Bank-FastAPI"
+name = "Clinica_VidaMais_API"
 version = "0.1.0"
-description = "API for banking transactions"
+description = "API da Clinica Vida+"
 authors = [
     {name = "Giliano G. Novais",email = "vipergiliano@gmail.com"}
 ]

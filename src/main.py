@@ -1,9 +1,10 @@
 from fastapi import FastAPI, status, Request  # type: ignore
 from fastapi.responses import JSONResponse  # type: ignore
 from fastapi.middleware.cors import CORSMiddleware  # type: ignore
-from src.controllers import auth, user, agency, account, transaction
-from src.exceptions import NotFoundAgencyError, NotFoundUserError
-from src.exceptions import NotFoundAccountError, NotFoundTransactionError
+from src.controllers import auth, user, agency, account, transaction, medico
+from src.exceptions import NotFoundMedicoError, NotFoundUserError
+from src.exceptions import NotFoundAgendamentoError, NotFoundExameError
+from src.exceptions import NotFoundPacienteError, NotFoundReceitaError
 from src.database import database
 from contextlib import asynccontextmanager
 
@@ -22,7 +23,7 @@ tags_metadata = [
     },
     {
         "name": "users",
-        "description": "Gestão de **usuários** e perfis (Administrador e Cliente). Acesso restrito a Admins.",
+        "description": "Gestão de **usuários** e perfis (Administrador, Medico e Atendente). Acesso restrito a Admins.",
     },
     {
         "name": "agencies",
@@ -48,21 +49,11 @@ servers = [
 
 
 app = FastAPI(
-    title="DIO Bank FastAPI",
+    title="Clínica Vida+ FastAPI",
     version="1.0.0",
-    summary="API Restful para Gestão de Contas e Transações Bancárias",
+    summary="API Restful para Gestão das atividades da Clínica Vida+",
     description="""
-# 🏦 DIO Bank API
-
-Bem-vindo à documentação oficial da **DIO Bank API**! Esta aplicação foi construída com **FastAPI**, **Clean Architecture**, **SQLAlchemy Core** e **Alembic**.
-
-### 🔑 Recursos Principais:
-* **Autenticação Stateless (JWT)** com suporte a RBAC (*Role-Based Access Control* para `admin` e `client`).
-* **Regras de Negócio Financeiras**:
-  * Limite de apenas **uma conta corrente por cliente**.
-  * Encerramento restrito a contas com **saldo zerado**.
-  * Execução atômica de transações bancárias (garantia contra inconsistências).
-  * Extrato inteligente com filtragem granular por **Débitos**, **Créditos** ou **Histórico Completo**.
+# 🏥 Clínica Vida+ API
 
 ---
 *Desenvolvido como projeto prático no ecossistema Python.*
@@ -83,7 +74,15 @@ app.add_middleware(
 
 
 app.include_router(auth.router, tags=["auth"])
+app.include_router(agendamento.router, tags=["agendamentos"])
+app.include_router(atendimento.router, tags=["atendimentos"])
+app.include_router(exame.router, tags=["exames"])
+app.include_router(medico.router, tags=["medicos"])
+app.include_router(paciente.router, tags=["pacientes"])
+app.include_router(receita.router, tags=["receitas"])
 app.include_router(user.router, tags=["users"])
+
+
 app.include_router(agency.router, tags=["agencies"])
 app.include_router(account.router, tags=["accounts"])
 app.include_router(transaction.router, tags=["transactions"])
@@ -98,12 +97,12 @@ async def not_found_user_exception_handler(request: Request,
     )
 
 
-@app.exception_handler(NotFoundAgencyError)
-async def not_found_agency_exception_handler(request: Request,
-                                             exc: NotFoundAgencyError):
+@app.exception_handler(NotFoundMedicoError)
+async def not_found_medico_exception_handler(request: Request,
+                                             exc: NotFoundMedicoError):
     return JSONResponse(
         status_code=status.HTTP_404_NOT_FOUND,
-        content={"detail": "Agency not found!"},
+        content={"detail": "Medico not found!"},
     )
 
 
