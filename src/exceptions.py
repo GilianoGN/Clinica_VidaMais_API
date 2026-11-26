@@ -1,8 +1,8 @@
-class NotFoundAgendamentoError(Exception):
+class NotFoundAgendaError(Exception):
     pass
 
 
-class NotFoundAtendimentoError(Exception):
+class NotFoundAtendiError(Exception):
     pass
 
 

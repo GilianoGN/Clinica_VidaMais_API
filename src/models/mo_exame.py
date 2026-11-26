@@ -7,7 +7,7 @@ exames = sa.Table(
     "exames",
     metadata,
     sa.Column("id", sa.Integer, primary_key=True, index=True),
-    sa.Column("atendimento_id", sa.Integer, sa.ForeignKey("atendimento.id"),
+    sa.Column("atendi_id", sa.Integer, sa.ForeignKey("atendi.id"),
               nullable=False),
     sa.Column("nome_exame", sa.String(120), nullable=False),
     sa.Column("resultado", sa.String(500), default="Aguardar resultado",

@@ -1,9 +1,9 @@
 from fastapi import APIRouter, HTTPException, status  # type: ignore
 from passlib.context import CryptContext
-from src.schemas.auth import LoginIn
+from schemas.sc_auth import LoginIn
 from src.security import sign_jwt
-from src.services.user import UserService
-from src.views.auth import LoginOut
+from services.se_user import UserService
+from views.vi_auth import LoginOut
 
 
 router = APIRouter(prefix="/auth")

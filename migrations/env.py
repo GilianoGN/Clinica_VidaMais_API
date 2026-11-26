@@ -8,7 +8,7 @@ from alembic import context
 from src.config import settings
 from src.database import metadata
 
-from src.models.user import users  # noqa
+from models.mo_user import users  # noqa
 from src.models.agency import agencies  # noqa
 from src.models.account import accounts  # noqa
 from src.models.transaction import transactions  # noqa

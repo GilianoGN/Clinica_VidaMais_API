@@ -5,8 +5,8 @@ from httpx import AsyncClient
 
 @pytest_asyncio.fixture(autouse=True)
 async def populate_users(db):
-    from src.schemas.user import UserIn
-    from src.services.user import UserService
+    from schemas.sc_user import UserIn
+    from services.se_user import UserService
 
     service = UserService()
     await service.create(UserIn(name="user 1",

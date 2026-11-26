@@ -1,8 +1,8 @@
-from databases.interfaces import Record  # type: ignore
+from database.interfaces import Record  # type: ignore
 from src.exceptions import NotFoundPacienteError
 from src.database import database
-from src.models.paciente import pacientes
-from src.schemas.paciente import PacienteIn, PacienteUpdateIn
+from models.mo_paciente import pacientes
+from schemas.sc_paciente import PacienteIn, PacienteUpdateIn
 
 
 class PacienteService:
@@ -15,7 +15,7 @@ class PacienteService:
         # Verifica se já existe um paciente com o mesmo nome
         existing_paciente = await self.get_by_nome(paciente.nome)
         if existing_paciente:
-            from fastapi import HTTPException, status
+            from fastapi import HTTPException, status  # type: ignore
             raise HTTPException(
                 status_code=status.HTTP_409_CONFLICT,
                 detail="Paciente with this name already exists."

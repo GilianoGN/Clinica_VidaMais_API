@@ -1,7 +1,7 @@
 from fastapi import status, APIRouter, Depends  # type: ignore
-from src.schemas.paciente import PacienteIn, PacienteUpdateIn
-from src.views.paciente import PacientesListOut
-from src.services.paciente import PacienteService
+from schemas.sc_paciente import PacienteIn, PacienteUpdateIn
+from views.vi_paciente import PacientesListOut
+from services.se_paciente import PacienteService
 from src.security import get_current_admin_user
 
 

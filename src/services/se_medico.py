@@ -1,8 +1,8 @@
-from databases.interfaces import Record  # type: ignore
+from database.interfaces import Record  # type: ignore
 from src.exceptions import NotFoundMedicoError
 from src.database import database
-from src.models.medico import medicos
-from src.schemas.medico import MedicoIn, MedicoUpdateIn
+from models.mo_medico import medicos
+from schemas.sc_medico import MedicoIn, MedicoUpdateIn
 
 
 class MedicoService:
@@ -15,7 +15,7 @@ class MedicoService:
         # Verifica se já existe um medico com o mesmo nome
         existing_medico = await self.get_by_nome(medico.nome)
         if existing_medico:
-            from fastapi import HTTPException, status
+            from fastapi import HTTPException, status  # type: ignore
             raise HTTPException(
                 status_code=status.HTTP_409_CONFLICT,
                 detail="Medico with this name already exists."

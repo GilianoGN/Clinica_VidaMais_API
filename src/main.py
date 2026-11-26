@@ -1,10 +1,12 @@
+from controllers import co_agenda, co_atendi, co_exame, co_medico
 from fastapi import FastAPI, status, Request  # type: ignore
 from fastapi.responses import JSONResponse  # type: ignore
 from fastapi.middleware.cors import CORSMiddleware  # type: ignore
-from src.controllers import auth, user, agency, account, transaction, medico
+from controllers import co_auth, co_paciente, co_user
+from src.controllers import receita
 from src.exceptions import NotFoundMedicoError, NotFoundUserError
-from src.exceptions import NotFoundAgendamentoError, NotFoundExameError
-from src.exceptions import NotFoundPacienteError, NotFoundReceitaError
+from src.exceptions import NotFoundAgendaError, NotFoundExameError
+from src.exceptions import NotFoundPacienteError, NotFoundAtendiError
 from src.database import database
 from contextlib import asynccontextmanager
 
@@ -26,16 +28,16 @@ tags_metadata = [
         "description": "Gestão de **usuários** e perfis (Administrador, Medico e Atendente). Acesso restrito a Admins.",
     },
     {
-        "name": "agencies",
-        "description": "Manutenção do cadastro de **agências bancárias**. Acesso restrito a Admins.",
+        "name": "medicos",
+        "description": "Manutenção do cadastro de **Médicos**. Acesso restrito a Admins.",
     },
     {
-        "name": "accounts",
-        "description": "Operações de **contas bancárias** (Corrente e Poupança). Permite criação, consulta e encerramento de contas zeradas.",
+        "name": "pacientes",
+        "description": "Manutenção do cadastro de **Paciente**. Acesso restrito a Recepção.",
     },
     {
-        "name": "transactions",
-        "description": "Operações de **movimentação financeira** (Depósitos, Saques, Transferências e Extratos).",
+        "name": "agendamentos",
+        "description": "Operações de **Agendamento de Consulta**. Acesso restrito a Recepção.",
     },
 ]
 
@@ -73,19 +75,14 @@ app.add_middleware(
 )
 
 
-app.include_router(auth.router, tags=["auth"])
-app.include_router(agendamento.router, tags=["agendamentos"])
-app.include_router(atendimento.router, tags=["atendimentos"])
-app.include_router(exame.router, tags=["exames"])
-app.include_router(medico.router, tags=["medicos"])
-app.include_router(paciente.router, tags=["pacientes"])
+app.include_router(co_auth.router, tags=["auth"])
+app.include_router(co_agenda.router, tags=["agendas"])
+app.include_router(co_atendi.router, tags=["atendimentos"])
+app.include_router(co_exame.router, tags=["exames"])
+app.include_router(co_medico.router, tags=["medicos"])
+app.include_router(co_paciente.router, tags=["pacientes"])
 app.include_router(receita.router, tags=["receitas"])
-app.include_router(user.router, tags=["users"])
-
-
-app.include_router(agency.router, tags=["agencies"])
-app.include_router(account.router, tags=["accounts"])
-app.include_router(transaction.router, tags=["transactions"])
+app.include_router(co_user.router, tags=["users"])
 
 
 @app.exception_handler(NotFoundUserError)
@@ -106,19 +103,37 @@ async def not_found_medico_exception_handler(request: Request,
     )
 
 
-@app.exception_handler(NotFoundAccountError)
-async def not_found_account_exception_handler(request: Request,
-                                              exc: NotFoundAccountError):
+@app.exception_handler(NotFoundAgendaError)
+async def not_found_agend_exception_handler(request: Request,
+                                            exc: NotFoundAgendamentoError):
     return JSONResponse(
         status_code=status.HTTP_404_NOT_FOUND,
-        content={"detail": "Account not found!"},
+        content={"detail": "Agendamento not found!"},
     )
 
 
-@app.exception_handler(NotFoundTransactionError)
-async def not_found_trans_exception_handler(request: Request,
-                                            exc: NotFoundTransactionError):
+@app.exception_handler(NotFoundAtendiError)
+async def not_found_atend_exception_handler(request: Request,
+                                            exc: NotFoundAtendiError):
     return JSONResponse(
         status_code=status.HTTP_404_NOT_FOUND,
-        content={"detail": "Transaction not found!"},
+        content={"detail": "Atendimento not found!"},
+    )
+
+
+@app.exception_handler(NotFoundPacienteError)
+async def not_found_paciente_exception_handler(request: Request,
+                                               exc: NotFoundPacienteError):
+    return JSONResponse(
+        status_code=status.HTTP_404_NOT_FOUND,
+        content={"detail": "Paciente not found!"},
+    )
+
+
+@app.exception_handler(NotFoundExameError)
+async def not_found_exame_exception_handler(request: Request,
+                                            exc: NotFoundExameError):
+    return JSONResponse(
+        status_code=status.HTTP_404_NOT_FOUND,
+        content={"detail": "Exame not found!"},
     )

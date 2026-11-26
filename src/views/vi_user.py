@@ -1,5 +1,5 @@
 from pydantic import BaseModel  # type: ignore
-from src.schemas.user import ProfileEnum
+from schemas.sc_user import ProfileEnum
 
 
 # Definição de modelo de saída para usuário

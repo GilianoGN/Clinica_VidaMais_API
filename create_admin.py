@@ -1,7 +1,7 @@
 import asyncio
 from passlib.context import CryptContext
 from src.database import database
-from src.models.user import users
+from models.mo_user import users
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

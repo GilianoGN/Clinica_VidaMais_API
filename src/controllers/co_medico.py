@@ -1,7 +1,7 @@
 from fastapi import status, APIRouter, Depends  # type: ignore
-from src.schemas.medico import MedicoIn, MedicoUpdateIn
-from src.views.medico import MedicosListOut
-from src.services.medico import MedicoService
+from schemas.sc_medico import MedicoIn, MedicoUpdateIn
+from views.vi_medico import MedicosListOut
+from services.se_medico import MedicoService
 from src.security import get_current_admin_user
 
 

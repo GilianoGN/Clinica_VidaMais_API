@@ -1,7 +1,7 @@
 from fastapi import status, APIRouter, Depends  # type: ignore
-from src.schemas.user import UserIn, UserUpdateIn
-from src.views.user import UserOut, UserListOut
-from src.services.user import UserService
+from schemas.sc_user import UserIn, UserUpdateIn
+from views.vi_user import UserOut, UserListOut
+from services.se_user import UserService
 from src.security import get_current_admin_user
 
 

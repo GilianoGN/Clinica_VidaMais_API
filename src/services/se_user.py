@@ -1,9 +1,9 @@
-from databases.interfaces import Record  # type: ignore
+from database.interfaces import Record  # type: ignore
 from passlib.context import CryptContext
 from src.exceptions import NotFoundUserError
 from src.database import database
-from src.models.user import users
-from src.schemas.user import UserIn, UserUpdateIn
+from models.mo_user import users
+from schemas.sc_user import UserIn, UserUpdateIn
 
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -19,7 +19,7 @@ class UserService:
         # Verifica se já existe um usuário com o mesmo document
         existing_user = await self.get_by_document(user.document)
         if existing_user:
-            from fastapi import HTTPException, status
+            from fastapi import HTTPException, status  # type: ignore
             raise HTTPException(
                 status_code=status.HTTP_409_CONFLICT,
                 detail="User with this document already exists."

@@ -13,7 +13,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 @pytest_asyncio.fixture(autouse=True)
 async def db(request):
     from src.database import database, engine, metadata  # noqa
-    from src.models.user import users  # noqa
+    from models.mo_user import users  # noqa
     from src.models.agency import agencies  # noqa
     from src.models.account import accounts  # noqa
     from src.models.transaction import transactions  # noqa
